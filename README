@@ -1,0 +1,11 @@
+NAME
+    RT::Extension::PreviewInSearch - preview tickets right from search
+    results page
+
+DESCRIPTION
+AUTHOR
+    Ruslan Zakirov <ruz@bestpractical.com>
+
+LICENSE
+    Under the same terms as perl itself.
+

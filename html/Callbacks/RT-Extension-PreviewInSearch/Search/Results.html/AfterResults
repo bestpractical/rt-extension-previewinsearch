@@ -1,0 +1,37 @@
+<style>
+tr.in-preview td { background: #ffb }
+</style>
+<div id="ticket-preview-container" ></div>
+<script type="text/javascript">
+jQuery(function(){
+    var get_ticket_row = function (from) {
+        var row = jQuery(from).closest('tr');
+        var even_or_odd = row.hasClass('oddline')? 'evenline': 'oddline';
+        row = row.add(row.prevUntil('.'+even_or_odd, '[class*="line"]'))
+            .add(row.nextUntil('.'+even_or_odd, '[class*="line"]'));
+        return row;
+    };
+    jQuery('table.ticket-list > tbody > tr > td').on('click', function (e) {
+        if (e.target.tagName != 'TD')
+            return;
+
+        var row = get_ticket_row(e.target);
+        var tid = row.find('> td a[href*="Display.html?id="]')
+            .first().attr('href').match(/Display\.html\?id=(\d+)/)[1];
+        var url = <% RT->Config->Get('WebPath') |n,j %> +'/Helpers/TicketPreview?id='+tid;
+        row.siblings('tr').removeClass('in-preview');
+        row.addClass('in-preview');
+        jQuery('#ticket-preview-container').text(<% loc('Loading...') |n,j %>)
+            .load( url, function (response, status, xhr) {
+                console.log(status);
+            } );
+        jQuery('html, body').animate({
+            scrollTop: '+='+(jQuery("#ticket-preview-container").offset().top-jQuery(window).scrollTop())
+        }, 1000);
+    });
+});
+</script>
+<%ARGS>
+</%ARGS>
+<%INIT>
+</%INIT>
