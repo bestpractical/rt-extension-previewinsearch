@@ -9,7 +9,7 @@ my $web_path = RT->Config->Get('WebPath');
 
 </%INIT>
 <div>
-<h2><a href="<% $web_path %>">#<% $ticket->id %>: <% $ticket->Subject %></a></h2>
+<h2><a href="<% $web_path %>/Ticket/Display.html?id=<% $ticket->id %>">#<% $ticket->id %>: <% $ticket->Subject %></a></h2>
 </div>
 % $m->callback(CallbackName => 'BeforeHistory', ARGSRef => \%ARGS, Ticket => $ticket);
 <& /Elements/ShowHistory,
