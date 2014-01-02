@@ -3,9 +3,58 @@ NAME
     results page
 
 DESCRIPTION
+    RT's query builder (the ticket search interface) allows you to customize
+    all of the columns that show up in search results, so you can usually
+    customize a search and get all of the ticket metadata you need displayed
+    on the search results page (e.g., current status, queue, owner, etc.).
+    But sometimes you also need to see something from the history when you
+    are looking for a ticket. This extension allows you to view the history
+    of tickets at the bottom of the search results page without clicking
+    over to the full display ticket page.
+
+    With the extension installed, perform your search, then click anywhere
+    in the ticket row in the search results. The history for that ticket
+    will be displayed at the bottom of the page.
+
+RT VERSIONS
+    Works with RT 4.2.
+
+INSTALLATION
+    "perl Makefile.PL"
+    "make"
+    "make install"
+        May need root permissions
+
+    Edit your /opt/rt4/etc/RT_SiteConfig.pm
+        Add this line:
+
+            Set(@Plugins, qw(RT::Extension::PreviewInSearch));
+
+        or add "RT::Extension::PreviewInSearch" to your existing @Plugins
+        line. Starting with RT 4.2 you can also use:
+
+            Plugin( "RT::Extension::PreviewInSearch" );
+
+    Clear your mason cache
+            rm -rf /opt/rt4/var/mason_data/obj
+
+    Restart your webserver
+
 AUTHOR
     Ruslan Zakirov <ruz@bestpractical.com>
 
-LICENSE
-    Under the same terms as perl itself.
+BUGS
+    All bugs should be reported via email to
+    bug-RT-Extension-PreviewInSearch@rt.cpan.org
+    <mailto:bug-RT-Extension-PreviewInSearch@rt.cpan.org> or via the web at
+    rt.cpan.org
+    <http://rt.cpan.org/Public/Dist/Display.html?Name=RT-Extension-PreviewIn
+    Search>.
+
+LICENSE AND COPYRIGHT
+    This software is Copyright 2014 Best Practical Solutions, LLC.
+
+    This is free software, licensed under:
+
+      The GNU General Public License, Version 2, June 1991
 
