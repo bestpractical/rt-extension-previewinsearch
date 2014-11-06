@@ -1,5 +1,21 @@
 <style>
 tr.in-preview td { background: #ffb }
+% if ( RT->Config->Get('SideBySidePreview') ) {
+table.collection-as-table-smaller-left {
+    position: relative;
+    width: 43%;
+}
+#ticket-preview-container {
+    float: right;
+    width: 56%;
+    margin-top: -137%;
+}
+@-moz-document url-prefix() {
+    #ticket-preview-container {
+        margin-top: -102%;
+    }
+}
+% }
 </style>
 <div id="ticket-preview-container" ></div>
 <script type="text/javascript">
@@ -28,6 +44,9 @@ jQuery(function(){
         jQuery('html, body').animate({
             scrollTop: '+='+(jQuery("#ticket-preview-container").offset().top-jQuery(window).scrollTop())
         }, 1000);
+% if ( RT->Config->Get('SideBySidePreview') ) {
+        jQuery('table.collection-as-table').addClass('collection-as-table-smaller-left');
+% }
     });
 });
 </script>
