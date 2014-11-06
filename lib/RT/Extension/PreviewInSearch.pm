@@ -64,6 +64,14 @@ Starting with RT 4.2 you can also use:
 
 =cut
 
+=head1 CONFIGURATION
+
+=head2 C<$SideBySidePreview>
+
+This allow the preview box to be displayed aside of search results box.
+
+    Set($SideBySidePreview, 1);
+
 =head1 AUTHOR
 
 Ruslan Zakirov E<lt>ruz@bestpractical.comE<gt>
