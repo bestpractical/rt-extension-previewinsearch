@@ -7,8 +7,8 @@ table.collection-as-table-smaller-left {
 }
 #ticket-preview-container {
     position: fixed;
-    float: right;
-    width: 56%;
+    left: 45%;
+    right: 3%;
 }
 .refresh {
     clear: both;
