@@ -6,6 +6,7 @@ table.collection-as-table-smaller-left {
     width: 43%;
 }
 #ticket-preview-container {
+    position: fixed;
     float: right;
     width: 56%;
 }
@@ -38,11 +39,13 @@ jQuery(function(){
             .load( url, function (response, status, xhr) {
                 console.log(status);
             } );
+% if ( RT->Config->Get('SideBySidePreview') ) {
+        jQuery('table.collection-as-table').addClass('collection-as-table-smaller-left');
+% }
+% else {
         jQuery('html, body').animate({
             scrollTop: '+='+(jQuery("#ticket-preview-container").offset().top-jQuery(window).scrollTop())
         }, 1000);
-% if ( RT->Config->Get('SideBySidePreview') ) {
-        jQuery('table.collection-as-table').addClass('collection-as-table-smaller-left');
 % }
     });
 });
