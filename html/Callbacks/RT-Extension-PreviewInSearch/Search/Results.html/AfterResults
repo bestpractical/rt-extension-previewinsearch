@@ -1,13 +1,23 @@
 <style>
 tr.in-preview td { background: #ffb }
 % if ( RT->Config->Get('SideBySidePreview') ) {
-table.collection-as-table-smaller-left {
-    width: 43%;
+.collection-as-table-with-previewinsearch {
+    position: fixed;
+    width: 42%;
+    top: 10em;
+    bottom: 3em;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    z-index: 11;
+}
+.refresh-with-previewinsearch {
+    position: fixed;
+    bottom: 0;
 }
 #ticket-preview-container {
     position: fixed;
     top: 10em;
-    left: 45%;
+    left: 47%;
     right: 0;
     bottom: 0;
     overflow-y: auto;
@@ -40,7 +50,8 @@ jQuery(function(){
         jQuery('#ticket-preview-container').text(<% loc('Loading...') |n,j %>)
             .load( url );
 % if ( RT->Config->Get('SideBySidePreview') ) {
-        jQuery('table.collection-as-table').addClass('collection-as-table-smaller-left');
+        jQuery('table.collection-as-table').wrap( "<div class='collection-as-table-with-previewinsearch'></div>" );
+        jQuery('div.refresh').addClass('refresh-with-previewinsearch');
         jQuery('#ticket-preview-container').show();
 % } else {
         jQuery('html, body').animate({
