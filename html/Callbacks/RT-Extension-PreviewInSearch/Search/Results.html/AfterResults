@@ -57,6 +57,9 @@ jQuery(function(){
         jQuery('table.collection-as-table').wrap( "<div class='collection-as-table-with-previewinsearch'></div>" );
         jQuery('#ticket-preview-container').show();
         jQuery('div.refresh').addClass('refresh-with-previewinsearch');
+        jQuery('div.collection-as-table-with-previewinsearch').animate({
+            scrollTop: '+='+(jQuery("tr.in-preview").offset().top-jQuery('div.collection-as-table-with-previewinsearch').offset().top)
+        }, 1000);
         jQuery('div.paging').addClass('paging-with-previewinsearch');
 % } else {
         jQuery('html, body').animate({
