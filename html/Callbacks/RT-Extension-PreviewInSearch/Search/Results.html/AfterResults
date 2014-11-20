@@ -5,7 +5,7 @@ tr.in-preview td { background: #ffb }
     position: fixed;
     width: 42%;
     top: 10em;
-    bottom: 3em;
+    bottom: 6em;
     overflow-y: scroll;
     overflow-x: hidden;
     z-index: 11;
@@ -13,6 +13,10 @@ tr.in-preview td { background: #ffb }
 .refresh-with-previewinsearch {
     position: fixed;
     bottom: 0;
+}
+.paging-with-previewinsearch {
+    position: fixed;
+    bottom: 2.5em;
 }
 #ticket-preview-container {
     position: fixed;
@@ -51,8 +55,9 @@ jQuery(function(){
             .load( url );
 % if ( RT->Config->Get('SideBySidePreview') ) {
         jQuery('table.collection-as-table').wrap( "<div class='collection-as-table-with-previewinsearch'></div>" );
-        jQuery('div.refresh').addClass('refresh-with-previewinsearch');
         jQuery('#ticket-preview-container').show();
+        jQuery('div.refresh').addClass('refresh-with-previewinsearch');
+        jQuery('div.paging').addClass('paging-with-previewinsearch');
 % } else {
         jQuery('html, body').animate({
             scrollTop: '+='+(jQuery("#ticket-preview-container").offset().top-jQuery(window).scrollTop())
