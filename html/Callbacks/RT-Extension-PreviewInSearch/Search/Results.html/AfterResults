@@ -1,7 +1,7 @@
 <style>
 tr.in-preview td { background: #ffb }
 % if ( RT->Config->Get('SideBySidePreview') ) {
-.collection-as-table-with-previewinsearch {
+.ticket-list-with-previewinsearch {
     position: fixed;
     width: 42%;
     top: 10em;
@@ -48,11 +48,11 @@ var do_preview = function(row) {
     row.addClass('in-preview');
     jQuery('#ticket-preview-container').text(<% loc('Loading...') |n,j %>).load( url );
 % if ( RT->Config->Get('SideBySidePreview') ) {
-    jQuery('table.collection-as-table').wrap( "<div class='collection-as-table-with-previewinsearch'></div>" );
+    jQuery('table.ticket-list').wrap( "<div class='ticket-list-with-previewinsearch'></div>" );
     jQuery('#ticket-preview-container').show();
     jQuery('div.refresh').addClass('refresh-with-previewinsearch');
-    jQuery('div.collection-as-table-with-previewinsearch').animate({
-        scrollTop: '+='+(jQuery("tr.in-preview").offset().top-jQuery('div.collection-as-table-with-previewinsearch').offset().top)
+    jQuery('div.ticket-list-with-previewinsearch').animate({
+        scrollTop: '+='+(jQuery("tr.in-preview").offset().top-jQuery('div.ticket-list-with-previewinsearch').offset().top)
     }, 1);
     jQuery('div.paging').addClass('paging-with-previewinsearch');
 % } else {
