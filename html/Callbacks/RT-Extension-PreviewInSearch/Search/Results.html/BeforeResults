@@ -21,7 +21,12 @@ table.ticket-list, .ticket-list-with-previewinsearch {
 #ticket-preview-container {
     position: fixed;
     top: 10em;
+% if ( $web_style =~ /web2|ballard/ ) {
+    left: 55%;
+% }
+% else {
     left: 47%;
+% }
     right: 0;
     bottom: 0;
     overflow-y: auto;
@@ -83,4 +88,7 @@ jQuery(function(){
 <%ARGS>
 </%ARGS>
 <%INIT>
+my $web_style = $session{'CurrentUser'}
+    ? $session{'CurrentUser'}->Stylesheet
+    : RT->Config->Get('WebDefaultStylesheet');
 </%INIT>
