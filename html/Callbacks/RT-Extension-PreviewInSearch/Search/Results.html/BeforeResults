@@ -6,7 +6,7 @@ table.ticket-list, .ticket-list-with-previewinsearch {
     width: 42%;
     top: 10em;
     bottom: 6em;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
     z-index: 11;
 }
