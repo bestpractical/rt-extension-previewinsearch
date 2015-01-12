@@ -22,7 +22,7 @@ table.ticket-list, .ticket-list-with-previewinsearch {
     position: fixed;
     top: 10em;
 % if ( $web_style =~ /web2|ballard/ ) {
-    left: 57%;
+    left: 56%;
 % }
 % else {
     left: 47%;
