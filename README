@@ -20,9 +20,9 @@ RT VERSIONS
     Works with RT 4.2.
 
 INSTALLATION
-    "perl Makefile.PL"
-    "make"
-    "make install"
+    perl Makefile.PL
+    make
+    make install
         May need root permissions
 
     Edit your /opt/rt4/etc/RT_SiteConfig.pm
@@ -30,7 +30,7 @@ INSTALLATION
 
             Set(@Plugins, qw(RT::Extension::PreviewInSearch));
 
-        or add "RT::Extension::PreviewInSearch" to your existing @Plugins
+        or add RT::Extension::PreviewInSearch to your existing @Plugins
         line. Starting with RT 4.2 you can also use:
 
             Plugin( "RT::Extension::PreviewInSearch" );
@@ -39,6 +39,12 @@ INSTALLATION
             rm -rf /opt/rt4/var/mason_data/obj
 
     Restart your webserver
+
+CONFIGURATION
+  $SideBySidePreview
+    This allow the preview box to be displayed aside of search results box.
+
+        Set($SideBySidePreview, 1);
 
 AUTHOR
     Ruslan Zakirov <ruz@bestpractical.com>
