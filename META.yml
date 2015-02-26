@@ -8,8 +8,8 @@ configure_requires:
   ExtUtils::MakeMaker: 6.59
 distribution_type: module
 dynamic_config: 1
-generated_by: 'Module::Install version 1.06'
-license: gpl
+generated_by: 'Module::Install version 1.14'
+license: gplv2
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
@@ -19,7 +19,11 @@ no_index:
     - html
     - inc
 requires:
-  perl: 5.10.0
+  perl: 5.10.1
 resources:
+  homepage: https://github.com/bestpractical/rt-extension-previewinsearch/tree
   license: http://opensource.org/licenses/gpl-license.php
-version: 0.01
+  repository: https://github.com/bestpractical/rt-extension-previewinsearch.git
+version: '0.03'
+x_module_install_rtx_version: '0.37'
+x_requires_rt: 4.0.0
