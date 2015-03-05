@@ -3,11 +3,8 @@ use 5.008001; # sane UTF-8 support
 use strict;
 use warnings;
 package YAML::Tiny;
-BEGIN {
-  $YAML::Tiny::AUTHORITY = 'cpan:ADAMK';
-}
-# git description: v1.59-TRIAL-1-g33d9cd2
-$YAML::Tiny::VERSION = '1.60';
+# git description: v1.63-12-g5dd832a
+$YAML::Tiny::VERSION = '1.64';
 # XXX-INGY is 5.8.1 too old/broken for utf8?
 # XXX-XDG Lancaster consensus was that it was sufficient until
 # proven otherwise
@@ -153,7 +150,7 @@ my %QUOTE = map { $_ => 1 } qw{
 my $re_capture_double_quoted = qr/\"([^\\"]*(?:\\.[^\\"]*)*)\"/;
 my $re_capture_single_quoted = qr/\'([^\']*(?:\'\'[^\']*)*)\'/;
 # unquoted re gets trailing space that needs to be stripped
-my $re_capture_unquoted_key  = qr/([^:]+(?::+\S[^:]*)*)(?=\s*\:(?:\s+|$))/;
+my $re_capture_unquoted_key  = qr/([^:]+(?::+\S(?:[^:]*|.*?(?=:)))*)(?=\s*\:(?:\s+|$))/;
 my $re_trailing_comment      = qr/(?:\s+\#.*)?/;
 my $re_key_value_separator   = qr/\s*:(?:\s+(?:\#.*)?|$)/;
 
@@ -300,10 +297,11 @@ Did you decode with lax ":utf8" instead of strict ":encoding(UTF-8)"?
             }
         }
     };
-    if ( ref $@ eq 'SCALAR' ) {
-        $self->_error(${$@});
-    } elsif ( $@ ) {
-        $self->_error($@);
+    my $err = $@;
+    if ( ref $err eq 'SCALAR' ) {
+        $self->_error(${$err});
+    } elsif ( $err ) {
+        $self->_error($err);
     }
 
     return $self;
@@ -513,6 +511,10 @@ sub _load_hash {
         }
         else {
             die \"YAML::Tiny failed to classify line '$lines->[0]'";
+        }
+
+        if ( exists $hash->{$key} ) {
+            die \"YAML::Tiny found a duplicate key '$key' in line '$lines->[0]'";
         }
 
         # Do we have a value?
@@ -828,12 +830,10 @@ sub _can_flock {
 #####################################################################
 # Use Scalar::Util if possible, otherwise emulate it
 
+use Scalar::Util ();
 BEGIN {
     local $@;
-    if ( eval { require Scalar::Util }
-      && $Scalar::Util::VERSION
-      && eval($Scalar::Util::VERSION) >= 1.18
-    ) {
+    if ( eval { Scalar::Util->VERSION(1.18); } ) {
         *refaddr = *Scalar::Util::refaddr;
     }
     else {
@@ -855,8 +855,7 @@ END_PERL
     }
 }
 
-
-
+delete $YAML::Tiny::{refaddr};
 
 1;
 
@@ -873,4 +872,4 @@ END_PERL
 
 __END__
 
-#line 1491
+#line 1490
