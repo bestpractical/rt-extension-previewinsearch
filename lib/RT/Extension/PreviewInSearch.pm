@@ -4,7 +4,7 @@ use warnings;
 
 package RT::Extension::PreviewInSearch;
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 =head1 NAME
 
@@ -29,7 +29,7 @@ at the bottom of the page.
 
 =head1 RT VERSIONS
 
-Works with RT 4.2.
+Works with RT 4.2, 4.4.
 
 =head1 INSTALLATION
 
