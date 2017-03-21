@@ -49,7 +49,7 @@ var do_preview = function(row) {
     var tid = row.find('> td a[href*="Display.html?id="]')
         .first().attr('href').match(/Display\.html\?id=(\d+)/)[1];
     var url = <% RT->Config->Get('WebPath') |n,j %> +'/Helpers/TicketPreview?id='+tid;
-    row.siblings('tr').removeClass('in-preview');
+    row.closest('table').children('tbody').children('tr').removeClass('in-preview');
     row.addClass('in-preview');
     jQuery('#ticket-preview-container').text(<% loc('Loading...') |n,j %>).load( url );
 % if ( RT->Config->Get('SideBySidePreview') ) {
