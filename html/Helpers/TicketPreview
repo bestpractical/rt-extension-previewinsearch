@@ -24,6 +24,7 @@ my $web_path = RT->Config->Get('WebPath');
     EmailRecordPath => "$web_path/Ticket/ShowEmailRecord.html",
     EncryptionPath  => "$web_path/Ticket/Crypt.html",
 &>
+<hr> <a href="#skipnav">Go to Top</a> <hr>
 <script type="text/javascript">ReplaceUserReferences()</script>
 % $m->callback(CallbackName => 'AfterHistory', ARGSRef => \%ARGS, Ticket => $ticket);
 % $m->abort();
