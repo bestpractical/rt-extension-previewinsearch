@@ -6,6 +6,17 @@ package RT::Extension::PreviewInSearch;
 
 our $VERSION = '0.05';
 
+$RT::Config::META{'PreviewInSearch'} = {
+    Section         => 'General',
+    Overridable     => 1,
+    Widget          => '/Widgets/Form/Boolean',
+    WidgetArguments => {
+        Description => 'Display Ticket History besides Search Results', # loc
+        Hints       => '(' . __PACKAGE__ . ')',
+    },
+};
+
+
 =head1 NAME
 
 RT::Extension::PreviewInSearch - preview tickets right from search results page
