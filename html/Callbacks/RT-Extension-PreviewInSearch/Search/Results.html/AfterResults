@@ -1,4 +1,53 @@
-% if ( RT::Handle::cmp_version($RT::VERSION, '5.0.0') < 0 ) {
+% if ( RT::Handle::cmp_version($RT::VERSION, '5.0.0') >= 0 ) {
+% # RT 5 version
+<style>
+tr.in-preview td { background: #ffb }
+div.ticket-list-with-previewinsearch table.ticket-list { table-layout:fixed; }
+</style>
+<script type="text/javascript">
+var ticket_list = jQuery('table.ticket-list');
+
+% if ( RT->Config->Get('SideBySidePreview') ) {
+ticket_list.wrap( "<div class='row m-0'><div class='ticket-list-with-previewinsearch col-6'></div></div>" );
+jQuery('div.ticket-list-with-previewinsearch').after( "<div id='ticket-preview-container' class='col-6'><p>foobar</p></div>" );
+% } else {
+ticket_list.after( "<div class='row m-0'><div id='ticket-preview-container' class='col-12'><p>foobar</p></div></div>" );
+% }
+
+var get_ticket_row = function (from) {
+    var row = jQuery(from).closest('tr');
+    var even_or_odd = row.hasClass('oddline')? 'evenline': 'oddline';
+    row = row.add(
+        row.prevUntil( '.' + even_or_odd, '[class*="line"]' )
+    ).add(
+        row.nextUntil( '.' + even_or_odd, '[class*="line"]' )
+    );
+    return row;
+};
+
+var do_preview = function (row) {
+    var tid = row.find('> td a[href*="Display.html?id="]').first().attr('href').match(/Display\.html\?id=(\d+)/)[1];
+    var url = <% RT->Config->Get('WebPath') |n,j %> +'/Helpers/TicketPreview?id='+tid;
+    row.closest('table').children('tbody').children('tr').removeClass('in-preview');
+    row.addClass('in-preview');
+    jQuery('#ticket-preview-container').text(<% loc('Loading...') |n,j %>).load( url );
+};
+
+jQuery(document).ready(function() {
+    do_preview( get_ticket_row( jQuery('table.ticket-list tbody tr td').first() ) );
+});
+
+jQuery(function(){
+    jQuery('table.collection-as-table > tbody > tr > td').on('click', function (e) {
+        if (e.target.tagName != 'TD')
+            return;
+
+        var row = get_ticket_row(e.target);
+        do_preview(row);
+    });
+});
+</script>
+% } elsif ( RT::Handle::cmp_version($RT::VERSION, '5.0.0') < 0 ) {
 % # RT 4 version
 <style>
 tr.in-preview td { background: #ffb }
