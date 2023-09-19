@@ -35,6 +35,23 @@ var do_preview = function (row) {
 
 jQuery(document).ready(function() {
     do_preview( get_ticket_row( jQuery('table.ticket-list tbody tr td').first() ) );
+
+    // if RT 5.0.4 or newer need to adjust calculation of max-height of search filter modal
+    if ( jQuery(".search-filter") ) {
+        jQuery(".search-filter").click(function(ev){
+            ev.preventDefault();
+            var modal = jQuery(this).closest('th').find('.modal.search-results-filter');
+            modal.css('top', jQuery(this).offset().top);
+            var left = jQuery(this).offset().left;
+            // 10 is extra space to move modal a bit away from edge
+            if ( left + modal.width() + 10 > jQuery('body').width() ) {
+                left = jQuery('body').width() - modal.width() - 10;
+            }
+            modal.css('left', left);
+            modal.find('div.modal-content').css('max-height', jQuery(window).height() - jQuery(this).offset().top - 160 );
+            modal.modal('show');
+        });
+    }
 });
 
 jQuery(function(){
