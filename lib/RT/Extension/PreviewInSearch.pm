@@ -29,7 +29,7 @@ at the bottom of the page.
 
 =head1 RT VERSIONS
 
-Works with RT 4.2, 4.4.
+Works with RT 4.2, 4.4, 5.0
 
 =head1 INSTALLATION
 
