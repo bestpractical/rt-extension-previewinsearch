@@ -17,7 +17,7 @@ DESCRIPTION
     will be displayed at the bottom of the page.
 
 RT VERSIONS
-    Works with RT 4.2.
+    Works with RT 4.2, 4.4, 5.0
 
 INSTALLATION
     perl Makefile.PL
