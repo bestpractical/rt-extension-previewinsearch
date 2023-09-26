@@ -88,7 +88,7 @@ or via the web at
 
 =head1 LICENSE AND COPYRIGHT
 
-This software is Copyright (c) 2007-2014 by Best Practical Solutions, LLC
+This software is Copyright (c) 2007-2023 by Best Practical Solutions, LLC
 
 This is free software, licensed under:
 
