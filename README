@@ -25,6 +25,11 @@ INSTALLATION
     make install
         May need root permissions
 
+    Patch RT
+        For RT prior to 5.0.6, apply the patches:
+
+            patch -d /opt/rt5 -p1 < patches/0001-MODIFYPATHS.patch
+
     Edit your /opt/rt4/etc/RT_SiteConfig.pm
         Add this line:
 
