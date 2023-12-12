@@ -43,6 +43,12 @@ Works with RT 4.2, 4.4, 5.0
 
 May need root permissions
 
+=item Patch RT
+
+For RT prior to 5.0.6, apply the patches:
+
+    patch -d /opt/rt5 -p1 < 0001-Add-ModifyPaths-Callback.patch
+
 =item Edit your F</opt/rt4/etc/RT_SiteConfig.pm>
 
 Add this line:
