@@ -53,7 +53,7 @@ May need root permissions
 
 For RT 5 prior to 5.0.6, apply the patches:
 
-    patch -d /opt/rt5 -p1 < 0001-Add-ModifyPaths-Callback.patch
+    patch -d /opt/rt5 -p1 < 0001-Add-Initial-callback-for-PreviewInSearch.patch
 
 =item Edit your F</opt/rt4/etc/RT_SiteConfig.pm>
 
