@@ -5,7 +5,7 @@ tr.in-preview td { background: #ffb }
 div.ticket-list-with-previewinsearch table.ticket-list { table-layout:fixed; }
 </style>
 <script type="text/javascript">
-var ticket_list = jQuery('table.ticket-list');
+var ticket_list = jQuery('div#body');
 
 % if ( RT->Config->Get('SideBySidePreview') ) {
 ticket_list.wrap( "<div class='row m-3'><div class='ticket-list-with-previewinsearch col-6'></div></div>" );
