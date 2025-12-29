@@ -80,6 +80,26 @@ display the selected ticket history on the right of search results.
 
     Set($SideBySidePreview, 1);
 
+=cut
+
+if ( RT->Config->can('RegisterPluginConfig') ) {
+    RT->Config->RegisterPluginConfig(
+        Plugin  => 'PreviewInSearch',
+        Content => [
+            {
+                Name => 'SideBySidePreview',
+                Help => 'https://metacpan.org/pod/RT::Extension::PreviewInSearch#%24SideBySidePreview',
+            },
+        ],
+        Meta    => {
+            SideBySidePreview => {
+                Type   => 'SCALAR',
+                Widget => '/Widgets/Form/Boolean',
+            },
+        }
+    );
+}
+
 =head1 AUTHOR
 
 Best Practical Solutions, LLC
