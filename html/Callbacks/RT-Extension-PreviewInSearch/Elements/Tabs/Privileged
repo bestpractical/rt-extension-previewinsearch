@@ -1,0 +1,18 @@
+<%ARGS>
+$Path      => undef
+$Has_Query => 0
+</%ARGS>
+<%INIT>
+return unless RT->Config->Get( 'PreviewInSearch', $session{'CurrentUser'} );
+return unless $Has_Query;
+return unless $Path && $Path =~ m{^/Search/Results};
+
+my $menu = PageMenu();
+return unless $menu;
+
+my $label = loc('Preview');
+$menu->child(
+    'preview_in_search_toggle',
+    raw_html => qq{<a id="preview-in-search-toggle" class="menu-item nav-link btn rounded" href="#" hx-boost="false">$label</a>},
+);
+</%INIT>

@@ -1,6 +1,7 @@
 <style>
 tr.in-preview td { background: #ffb }
 div.ticket-list-with-previewinsearch table.ticket-list { table-layout:fixed; }
+#preview-in-search-toggle.active { font-weight: bold; }
 </style>
 <script type="text/javascript">
 var ticket_list = jQuery('div#body');
@@ -11,6 +12,30 @@ jQuery('div.ticket-list-with-previewinsearch').after( "<div id='ticket-preview-c
 % } else {
 ticket_list.after( "<div class='row m-3'><div id='ticket-preview-container' class='col-12'><p>foobar</p></div></div>" );
 % }
+
+var PREVIEW_KEY = 'rt_preview_in_search';
+
+function previewIsEnabled() {
+    return localStorage.getItem(PREVIEW_KEY) !== '0';
+}
+
+function updateToggleButton() {
+    var btn = jQuery('#preview-in-search-toggle');
+    if ( previewIsEnabled() ) {
+        btn.addClass('active');
+    } else {
+        btn.removeClass('active');
+    }
+}
+
+function showPreview() {
+    jQuery('#ticket-preview-container').closest('.row').show();
+}
+
+function hidePreview() {
+    jQuery('#ticket-preview-container').closest('.row').hide();
+    jQuery('table.ticket-list tbody tr').removeClass('in-preview');
+}
 
 var get_ticket_row = function (from) {
     var row = jQuery(from).closest('tr');
@@ -32,7 +57,27 @@ var do_preview = function (row) {
 };
 
 jQuery(document).ready(function() {
-    do_preview( get_ticket_row( jQuery('table.ticket-list tbody tr td').first() ) );
+    updateToggleButton();
+
+    if ( previewIsEnabled() ) {
+        showPreview();
+        do_preview( get_ticket_row( jQuery('table.ticket-list tbody tr td').first() ) );
+    } else {
+        hidePreview();
+    }
+
+    jQuery('#preview-in-search-toggle').on('click', function(e) {
+        e.preventDefault();
+        var enabled = !previewIsEnabled();
+        localStorage.setItem(PREVIEW_KEY, enabled ? '1' : '0');
+        updateToggleButton();
+        if ( enabled ) {
+            showPreview();
+            do_preview( get_ticket_row( jQuery('table.ticket-list tbody tr td').first() ) );
+        } else {
+            hidePreview();
+        }
+    });
 
     // if RT 5.0.4 or newer need to adjust calculation of max-height of search filter modal
     if ( jQuery(".search-filter") ) {
@@ -56,6 +101,8 @@ jQuery(function(){
     jQuery('table.collection-as-table > tbody > tr > td').on('click', function (e) {
         if (e.target.tagName != 'TD')
             return;
+        if ( !previewIsEnabled() )
+            return;
 
         var row = get_ticket_row(e.target);
         do_preview(row);
@@ -65,6 +112,7 @@ jQuery(function(){
 <%ARGS>
 </%ARGS>
 <%INIT>
+return unless RT->Config->Get( 'PreviewInSearch', $session{'CurrentUser'} );
 my $web_style = $session{'CurrentUser'}
     ? $session{'CurrentUser'}->Stylesheet
     : RT->Config->Get('WebDefaultStylesheet');

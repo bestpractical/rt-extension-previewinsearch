@@ -6,6 +6,17 @@ package RT::Extension::PreviewInSearch;
 
 our $VERSION = '1.00';
 
+$RT::Config::META{'PreviewInSearch'} = {
+    Section         => 'General',
+    Overridable     => 1,
+    Widget          => '/Widgets/Form/Boolean',
+    WidgetArguments => {
+        Description => 'Display Ticket History besides Search Results', # loc
+        Hints       => '(' . __PACKAGE__ . ')',
+    },
+};
+
+
 =head1 NAME
 
 RT::Extension::PreviewInSearch - preview tickets right from search results page
@@ -67,6 +78,13 @@ Add this line:
 
 =head1 CONFIGURATION
 
+=head2 C<$PreviewInSearch>
+
+Enable or disable the ticket history preview in search results. Can also be
+set per user in their preferences.
+
+    Set($PreviewInSearch, 1);
+
 =head2 C<$SideBySidePreview>
 
 Set this option to divide the search results page in half and
@@ -81,11 +99,25 @@ if ( RT->Config->can('RegisterPluginConfig') ) {
         Plugin  => 'PreviewInSearch',
         Content => [
             {
+                Name => 'PreviewInSearch',
+                Help => 'https://metacpan.org/pod/RT::Extension::PreviewInSearch#%24PreviewInSearch',
+            },
+            {
                 Name => 'SideBySidePreview',
                 Help => 'https://metacpan.org/pod/RT::Extension::PreviewInSearch#%24SideBySidePreview',
             },
         ],
         Meta    => {
+            PreviewInSearch => {
+                Section         => 'General',
+                Overridable     => 1,
+                Type            => 'SCALAR',
+                Widget          => '/Widgets/Form/Boolean',
+                WidgetArguments => {
+                    Description => 'Display Ticket History besides Search Results', # loc
+                    Hints       => '(' . __PACKAGE__ . ')',
+                },
+            },
             SideBySidePreview => {
                 Type   => 'SCALAR',
                 Widget => '/Widgets/Form/Boolean',

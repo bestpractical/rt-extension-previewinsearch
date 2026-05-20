@@ -16,6 +16,7 @@ my $web_path = RT->Config->Get('WebPath');
 % if ($ShowHistory eq "scroll") {
     <& /Ticket/Elements/ScrollShowHistory,
         Ticket => $ticket,
+        FilterTxnTypes => ['Create', 'Comment', 'Correspond'],
     &>
 % } else {
 <& /Elements/ShowHistory,
@@ -29,6 +30,7 @@ my $web_path = RT->Config->Get('WebPath');
     ForwardPath     => "$web_path/Ticket/Forward.html",
     EmailRecordPath => "$web_path/Ticket/ShowEmailRecord.html",
     EncryptionPath  => "$web_path/Ticket/Crypt.html",
+    FilterTxnTypes  => ['Create', 'Comment', 'Correspond'],
 &>
 % }
 <script type="text/javascript">ReplaceUserReferences()</script>
