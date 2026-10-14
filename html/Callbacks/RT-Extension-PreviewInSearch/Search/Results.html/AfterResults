@@ -24,7 +24,10 @@ var get_ticket_row = function (from) {
 };
 
 var do_preview = function (row) {
-    var tid = row.find('> td a[href*="Display.html?id="]').first().attr('href').match(/Display\.html\?id=(\d+)/)[1];
+    var link = row.find('> td a[href*="Display.html?id="]').first();
+    if ( !link.length ) return;
+
+    var tid = link.attr('href').match(/Display\.html\?id=(\d+)/)[1];
     var url = <% RT->Config->Get('WebPath') |n,j %> +'/Helpers/TicketPreview?id='+tid;
     row.closest('table').children('tbody').children('tr').removeClass('in-preview');
     row.addClass('in-preview');
@@ -63,8 +66,11 @@ jQuery(function(){
 });
 </script>
 <%ARGS>
+$Count => 0
 </%ARGS>
 <%INIT>
+return unless $Count;
+
 my $web_style = $session{'CurrentUser'}
     ? $session{'CurrentUser'}->Stylesheet
     : RT->Config->Get('WebDefaultStylesheet');
